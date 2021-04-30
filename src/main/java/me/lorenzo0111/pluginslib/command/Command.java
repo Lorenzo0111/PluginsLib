@@ -63,7 +63,7 @@ public abstract class Command implements CommandExecutor {
 
         try {
 
-            final Constructor<? extends Command> constructor = this.getClass().getConstructor();
+            final Constructor<? extends Command> constructor = this.getClass().getConstructor(JavaPlugin.class,String.class,Customization.class);
 
             if (constructor.isAnnotationPresent(Permission.class)) {
                 final Permission annotation = constructor.getAnnotation(Permission.class);
