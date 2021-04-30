@@ -22,39 +22,30 @@
  * SOFTWARE.
  */
 
-plugins {
-    id 'java'
-    id 'maven-publish'
-}
+package me.lorenzo0111.pluginslib.command.annotations;
 
-group 'me.lorenzo0111'
-version '1.0'
+import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.java.JavaPlugin;
 
-repositories {
-    mavenCentral()
-    maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
-}
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-dependencies {
-    compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
-    testCompileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
-    compileOnly 'org.jetbrains:annotations:16.0.2'
-}
+/**
+ * Add a permission
+ * Applicable to {@link me.lorenzo0111.pluginslib.command.SubCommand#handleSubcommand} and {@link me.lorenzo0111.pluginslib.command.Command#Command}
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.METHOD, ElementType.CONSTRUCTOR})
+public @interface Permission {
+    /**
+     * @return The permission
+     */
+    String value();
 
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from components.java
-        }
-    }
-
-    repositories {
-        maven {
-            url 'https://repo.repsy.io/mvn/lorenzo0111/public'
-            credentials {
-                username System.getenv("MAVEN_USERNAME")
-                password System.getenv("MAVEN_PASSWORD")
-            }
-        }
-    }
+    /**
+     * @return The no permission message
+     */
+    String msg() default "&c&lError! &cYou do not have the permission to execute this command.";
 }
