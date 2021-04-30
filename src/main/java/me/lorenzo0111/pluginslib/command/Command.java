@@ -105,14 +105,18 @@ public abstract class Command implements CommandExecutor {
             }
 
         } else {
-            if (this.customization.getNoArgs() != null) {
-                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.customization.getNoArgs()));
+            String noArgs = this.customization.getNoArgs(command.getName());
+
+            if (noArgs != null) {
+                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', noArgs));
             }
             return true;
         }
 
-        if (this.customization.getNotFound() != null) {
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.customization.getNotFound()));
+        String notFound = this.customization.getNotFound(command.getName());
+
+        if (notFound != null) {
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', notFound));
         }
 
         return true;

@@ -26,6 +26,8 @@ package me.lorenzo0111.pluginslib.command;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
 /**
  * Class for command customization
  */
@@ -55,18 +57,28 @@ public final class Customization {
     }
 
     /**
+     * @param command The variable $cmd will be replaced with his value
      * @return Message that is sent when the arg does not exists
      */
     @Nullable
-    public String getNotFound() {
-        return notFound;
+    public String getNotFound(String command) {
+        String str = notFound;
+        if (str == null) {
+            return null;
+        }
+        return str.replace("$cmd", command);
     }
 
     /**
+     * @param command The variable $cmd will be replaced with his value
      * @return Message that is sent when there are no args ( /command )
      */
     @Nullable
-    public String getNoArgs() {
-        return noArgs;
+    public String getNoArgs(String command) {
+        String str = noArgs;
+        if (str == null) {
+            return null;
+        }
+        return str.replace("$cmd", command);
     }
 }
