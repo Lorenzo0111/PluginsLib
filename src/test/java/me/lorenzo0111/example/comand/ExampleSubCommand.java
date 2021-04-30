@@ -22,39 +22,30 @@
  * SOFTWARE.
  */
 
-plugins {
-    id 'java'
-    id 'maven-publish'
-}
+package me.lorenzo0111.example.comand;
 
-group 'me.lorenzo0111'
-version '1.0.1'
+import me.lorenzo0111.pluginslib.command.Command;
+import me.lorenzo0111.pluginslib.command.SubCommand;
+import me.lorenzo0111.pluginslib.command.annotations.Permission;
+import org.bukkit.command.CommandSender;
 
-repositories {
-    mavenCentral()
-    maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
-}
+public class ExampleSubCommand extends SubCommand {
 
-dependencies {
-    compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
-    compileOnly 'org.jetbrains:annotations:16.0.2'
-    testCompileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
-}
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from components.java
-        }
+    /**
+     * @param command Parent of the subcommand
+     */
+    public ExampleSubCommand(Command command) {
+        super(command);
     }
 
-    repositories {
-        maven {
-            url 'https://repo.repsy.io/mvn/lorenzo0111/public'
-            credentials {
-                username System.getenv("REPO_USERNAME")
-                password System.getenv("REPO_PASSWORD")
-            }
-        }
+    @Override
+    public String getName() {
+        return "hello";
+    }
+
+    @Permission("hello.world.example")
+    @Override
+    public void handleSubcommand(CommandSender sender, String[] args) {
+
     }
 }

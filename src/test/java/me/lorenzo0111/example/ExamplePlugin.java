@@ -22,39 +22,17 @@
  * SOFTWARE.
  */
 
-plugins {
-    id 'java'
-    id 'maven-publish'
-}
+package me.lorenzo0111.example;
 
-group 'me.lorenzo0111'
-version '1.0.1'
+import me.lorenzo0111.example.comand.ExampleCommand;
+import me.lorenzo0111.pluginslib.command.Customization;
+import org.bukkit.plugin.java.JavaPlugin;
 
-repositories {
-    mavenCentral()
-    maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
-}
+public class ExamplePlugin extends JavaPlugin {
 
-dependencies {
-    compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
-    compileOnly 'org.jetbrains:annotations:16.0.2'
-    testCompileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
-}
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from components.java
-        }
+    @Override
+    public void onEnable() {
+        new ExampleCommand(this,"example",new Customization("&8[&ePluginsLib&8] &7Running &eExamplePlugin &7v&e0.0", "&cCommand not found", "Nothing here"));
     }
 
-    repositories {
-        maven {
-            url 'https://repo.repsy.io/mvn/lorenzo0111/public'
-            credentials {
-                username System.getenv("REPO_USERNAME")
-                password System.getenv("REPO_PASSWORD")
-            }
-        }
-    }
 }
