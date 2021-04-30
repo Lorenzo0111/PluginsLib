@@ -1,7 +1,9 @@
 name: Publish to Lorenzo0111's repository
 on:
   release:
-    types: [created]
+    types:
+      - created
+      - edited
 jobs:
   publish:
     runs-on: ubuntu-latest
