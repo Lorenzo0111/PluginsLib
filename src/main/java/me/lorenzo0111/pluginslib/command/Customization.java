@@ -26,8 +26,6 @@ package me.lorenzo0111.pluginslib.command;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Objects;
-
 /**
  * Class for command customization
  */

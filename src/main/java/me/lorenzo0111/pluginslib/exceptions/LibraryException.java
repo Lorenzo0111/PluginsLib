@@ -22,30 +22,13 @@
  * SOFTWARE.
  */
 
-package me.lorenzo0111.example.comand;
+package me.lorenzo0111.pluginslib.exceptions;
 
-import me.lorenzo0111.pluginslib.command.Command;
-import me.lorenzo0111.pluginslib.command.SubCommand;
-import me.lorenzo0111.pluginslib.command.annotations.Permission;
-import org.bukkit.command.CommandSender;
-
-public class ExampleSubCommand extends SubCommand {
-
-    /**
-     * @param command Parent of the subcommand
-     */
-    public ExampleSubCommand(Command command) {
-        super(command);
-    }
-
-    @Override
-    public String getName() {
-        return "hello";
-    }
-
-    @Permission("hello.world.example")
-    @Override
-    public void handleSubcommand(CommandSender sender, String[] args) {
-
+/**
+ * An exception that is called when something in this lib does not work
+ */
+public class LibraryException extends RuntimeException {
+    public LibraryException(String message) {
+        super(message);
     }
 }

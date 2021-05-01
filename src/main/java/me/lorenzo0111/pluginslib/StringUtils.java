@@ -22,21 +22,18 @@
  * SOFTWARE.
  */
 
-package me.lorenzo0111.example.comand;
+package me.lorenzo0111.pluginslib;
 
-import me.lorenzo0111.pluginslib.command.Command;
-import me.lorenzo0111.pluginslib.command.Customization;
-import me.lorenzo0111.pluginslib.command.annotations.Permission;
-import org.bukkit.plugin.java.JavaPlugin;
+/**
+ * Utilities for strings
+ */
+@SuppressWarnings("unused")
+public final class StringUtils {
+    public static String removeLastChar(String str) {
+        return removeLastChars(str, 1);
+    }
 
-public class ExampleCommand extends Command {
-    /**
-     * @param plugin        Owner of the command
-     * @param command       Name of the command ( /name )
-     * @param customization <b>Optional</b> Command customization
-     */
-    @Permission(value = "hello.world")
-    public ExampleCommand(JavaPlugin plugin, String command, Customization customization) {
-        super(plugin, command, customization);
+    public static String removeLastChars(String str, int chars) {
+        return str.substring(0, str.length() - chars);
     }
 }

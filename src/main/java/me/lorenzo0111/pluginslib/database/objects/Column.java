@@ -22,17 +22,36 @@
  * SOFTWARE.
  */
 
-package me.lorenzo0111.example;
+package me.lorenzo0111.pluginslib.database.objects;
 
-import me.lorenzo0111.example.comand.ExampleCommand;
-import me.lorenzo0111.pluginslib.command.Customization;
-import org.bukkit.plugin.java.JavaPlugin;
+/**
+ * Column of a {@link Table}
+ */
+@SuppressWarnings("unused")
+public final class Column {
+    private final String name;
+    private final String type;
 
-public class ExamplePlugin extends JavaPlugin {
-
-    @Override
-    public void onEnable() {
-        new ExampleCommand(this,"example",new Customization("&8[&ePluginsLib&8] &7Running &eExamplePlugin &7v&e0.0", "&cCommand not found", "Nothing here"));
+    /**
+     * @param name Name of the column
+     * @param type Type of the column. See http://bit.ly/SQLDataTypes for a type list
+     */
+    public Column(String name, String type) {
+        this.name = name;
+        this.type = type;
     }
 
+    /**
+     * @return Name of the column
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @return Type of the column. See http://bit.ly/SQLDataTypes for a type list
+     */
+    public String getType() {
+        return type;
+    }
 }

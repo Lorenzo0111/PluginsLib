@@ -25,6 +25,7 @@
 package me.lorenzo0111.pluginslib.command;
 
 import me.lorenzo0111.pluginslib.command.annotations.Permission;
+import me.lorenzo0111.pluginslib.exceptions.LibraryException;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -95,9 +96,9 @@ public abstract class SubCommand {
      * <b>Do not use this method</b>
      * @throws RuntimeException Caused when someone manually call this method.
      */
-    public void setPermission(String permission, String message) throws NoSuchMethodException, RuntimeException {
+    public void setPermission(String permission, String message) throws NoSuchMethodException, LibraryException {
         if (!this.getClass().getMethod("handleSubcommand").isAnnotationPresent(Permission.class)) {
-            throw new RuntimeException("You can't use this method. If you want to add a permission to the subcommand just add the @Permission annotation to the handleSubcommand method.");
+            throw new LibraryException("You can't use this method. If you want to add a permission to the subcommand just add the @Permission annotation to the handleSubcommand method.");
         }
 
         this.permission = permission;

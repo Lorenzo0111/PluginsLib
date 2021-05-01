@@ -125,13 +125,13 @@ public abstract class Command implements CommandExecutor {
     /**
      * @param subCommand SubCommand to add
      */
-    private void addSubcommand(SubCommand subCommand) {
+    public void addSubcommand(SubCommand subCommand) {
         this.subcommands.add(subCommand);
 
         try {
             // Check if the subcommand has a permission
 
-            Method method = subcommands.getClass().getMethod("handleSubcommand");
+            Method method = subCommand.getClass().getMethod("handleSubcommand", CommandSender.class, String[].class);
 
             if (method.isAnnotationPresent(Permission.class)) {
 

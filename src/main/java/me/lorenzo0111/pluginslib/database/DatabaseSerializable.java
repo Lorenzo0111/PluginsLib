@@ -22,27 +22,24 @@
  * SOFTWARE.
  */
 
-package me.lorenzo0111.pluginslib.command.annotations;
+package me.lorenzo0111.pluginslib.database;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Map;
 
 /**
- * Add a permission
- * Applicable to {@link me.lorenzo0111.pluginslib.command.SubCommand#handleSubcommand} and {@link me.lorenzo0111.pluginslib.command.Command#Command}
+ * An interface for class serialization
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD, ElementType.CONSTRUCTOR})
-public @interface Permission {
+@SuppressWarnings("unused")
+public interface DatabaseSerializable {
     /**
-     * @return The permission
+     * @return Name of the table
      */
-    String value();
+    @NotNull String tableName();
 
     /**
-     * @return The no permission message
+     * @return A map with all objects to serialize
      */
-    String msg() default "&c&lError! &cYou do not have the permission to execute this command.";
+    @NotNull Map<String, Object> serialize();
 }
