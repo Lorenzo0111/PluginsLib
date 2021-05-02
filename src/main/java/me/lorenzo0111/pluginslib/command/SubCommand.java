@@ -97,7 +97,7 @@ public abstract class SubCommand {
      * @throws RuntimeException Caused when someone manually call this method.
      */
     public void setPermission(String permission, String message) throws NoSuchMethodException, LibraryException {
-        if (!this.getClass().getMethod("handleSubcommand").isAnnotationPresent(Permission.class)) {
+        if (!this.getClass().getMethod("handleSubcommand", CommandSender.class, String[].class).isAnnotationPresent(Permission.class)) {
             throw new LibraryException("You can't use this method. If you want to add a permission to the subcommand just add the @Permission annotation to the handleSubcommand method.");
         }
 
