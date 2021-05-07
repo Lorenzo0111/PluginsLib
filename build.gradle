@@ -44,6 +44,32 @@ publishing {
     publications {
         maven(MavenPublication) {
             from components.java
+
+            pom {
+                name = 'PluginsLib'
+                description = 'A library for minecraft plugins'
+                url = 'https://github.com/Lorenzo0111/PluginsLib'
+
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://github.com/Lorenzo0111/RocketPlaceholders/blob/master/LICENSE'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'lorenzo0111'
+                        name = 'Lorenzo0111'
+                        email = 'lorenzo@rocketplugins.space'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/Lorenzo0111/PluginsLib.git'
+                    developerConnection = 'scm:git:ssh://github.com/Lorenzo0111/PluginsLib.git'
+                    url = 'https://github.com/Lorenzo0111/PluginsLib'
+                }
+            }
+
         }
     }
 
