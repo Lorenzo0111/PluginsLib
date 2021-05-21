@@ -39,7 +39,7 @@ import java.util.Map;
  * SQL Table
  */
 @SuppressWarnings("unused")
-public final class Table {
+public class Table {
     private final JavaPlugin plugin;
     private final Connection connection;
     private final String name;

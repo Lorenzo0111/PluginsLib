@@ -44,9 +44,9 @@ import java.util.logging.Level;
  */
 @SuppressWarnings("unused")
 public abstract class Command implements CommandExecutor {
-    protected String permission = null;
-    protected String message = null;
-    protected Customization customization;
+    private String permission = null;
+    private String message = null;
+    private final Customization customization;
 
     protected final JavaPlugin plugin;
     protected final List<SubCommand> subcommands = new ArrayList<>();

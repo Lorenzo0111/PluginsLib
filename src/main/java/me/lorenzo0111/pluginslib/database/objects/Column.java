@@ -28,7 +28,7 @@ package me.lorenzo0111.pluginslib.database.objects;
  * Column of a {@link Table}
  */
 @SuppressWarnings("unused")
-public final class Column {
+public class Column {
     private final String name;
     private final String type;
 

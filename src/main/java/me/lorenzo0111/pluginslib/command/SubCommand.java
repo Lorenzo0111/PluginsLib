@@ -30,9 +30,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 public abstract class SubCommand {
-    protected String permission = null;
-    protected String message = null;
-    protected Command command;
+    private String permission = null;
+    private String message = null;
+    private final Command command;
 
     /**
      * @param command Parent of the subcommand
