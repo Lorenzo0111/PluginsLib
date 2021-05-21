@@ -24,6 +24,7 @@
 
 package me.lorenzo0111.pluginslib.command;
 
+import me.lorenzo0111.pluginslib.command.annotations.AnyArgument;
 import me.lorenzo0111.pluginslib.command.annotations.Permission;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
@@ -37,6 +38,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.logging.Level;
 
 /**
@@ -103,6 +105,20 @@ public abstract class Command implements CommandExecutor {
                     return true;
                 }
             }
+
+            Optional<SubCommand> anyArgs = subcommands.stream()
+                    .filter((cmd) -> {
+                        try {
+                            return cmd.getClass().getMethod("getName").isAnnotationPresent(AnyArgument.class);
+                        } catch (NoSuchMethodException e) {
+                            e.printStackTrace();
+                        }
+
+                        return false;
+                    })
+                    .findFirst();
+
+            anyArgs.ifPresent(subCommand -> subCommand.perform(sender, args));
 
         } else {
             String noArgs = this.customization.getNoArgs(command.getName());
