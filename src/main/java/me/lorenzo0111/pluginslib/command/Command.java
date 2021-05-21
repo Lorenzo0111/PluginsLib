@@ -118,7 +118,10 @@ public abstract class Command implements CommandExecutor {
                     })
                     .findFirst();
 
-            anyArgs.ifPresent(subCommand -> subCommand.perform(sender, args));
+            if (anyArgs.isPresent()) {
+                anyArgs.get().perform(sender,args);
+                return true;
+            }
 
         } else {
             String noArgs = this.customization.getNoArgs(command.getName());

@@ -40,6 +40,16 @@ dependencies {
     testCompileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
 }
 
+javadoc {
+    options.links(
+            'https://javadoc.io/static/org.jetbrains/annotations/20.1.0/',
+            'https://docs.oracle.com/javase/8/docs/api/',
+            'https://papermc.io/javadocs/paper/1.16/'
+    )
+    source = sourceSets.main.allJava
+    destinationDir = new File("${System.getenv("javadocs")}/pluginslib/${version}")
+}
+
 publishing {
     publications {
         maven(MavenPublication) {
@@ -80,6 +90,20 @@ publishing {
                 username System.getenv("REPO_USERNAME")
                 password System.getenv("REPO_PASSWORD")
             }
+        }
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/Lorenzo0111/PluginsLib")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+            }
+        }
+    }
+
+    publications {
+        gpr(MavenPublication) {
+            from(components.java)
         }
     }
 }

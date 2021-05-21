@@ -94,7 +94,10 @@ public abstract class SubCommand {
 
     /**
      * <b>Do not use this method</b>
-     * @throws RuntimeException Caused when someone manually call this method.
+     * @param permission Permission required from the subcommand
+     * @param message Error message
+     * @throws NoSuchMethodException Strange, that methods exists..
+     * @throws LibraryException Caused when someone manually call this method.
      */
     public void setPermission(String permission, String message) throws NoSuchMethodException, LibraryException {
         if (!this.getClass().getMethod("handleSubcommand", CommandSender.class, String[].class).isAnnotationPresent(Permission.class)) {
