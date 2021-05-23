@@ -53,7 +53,6 @@ javadoc {
 publishing {
     publications {
         maven(MavenPublication) {
-            artifactId 'pluginslib'
             from components.java
 
             pom {
@@ -64,7 +63,7 @@ publishing {
                 licenses {
                     license {
                         name = 'MIT License'
-                        url = 'https://github.com/Lorenzo0111/RocketPlaceholders/blob/master/LICENSE'
+                        url = 'https://github.com/Lorenzo0111/PluginsLib/blob/master/LICENSE'
                     }
                 }
                 developers {
@@ -93,7 +92,7 @@ publishing {
             }
         }
         maven {
-            url = uri("https://maven.pkg.github.com/Lorenzo0111/PluginsLib")
+            url = uri("https://maven.pkg.github.com/lorenzo0111/pluginslib")
             credentials {
                 username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USERNAME")
                 password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
