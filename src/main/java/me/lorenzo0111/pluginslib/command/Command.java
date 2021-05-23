@@ -25,6 +25,7 @@
 package me.lorenzo0111.pluginslib.command;
 
 import me.lorenzo0111.pluginslib.command.annotations.AnyArgument;
+import me.lorenzo0111.pluginslib.command.annotations.NoArguments;
 import me.lorenzo0111.pluginslib.command.annotations.Permission;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
@@ -33,6 +34,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -106,17 +108,7 @@ public abstract class Command implements CommandExecutor {
                 }
             }
 
-            Optional<SubCommand> anyArgs = subcommands.stream()
-                    .filter((cmd) -> {
-                        try {
-                            return cmd.getClass().getMethod("getName").isAnnotationPresent(AnyArgument.class);
-                        } catch (NoSuchMethodException e) {
-                            e.printStackTrace();
-                        }
-
-                        return false;
-                    })
-                    .findFirst();
+            Optional<SubCommand> anyArgs = this.findSubcommand(AnyArgument.class);
 
             if (anyArgs.isPresent()) {
                 anyArgs.get().perform(sender,args);
@@ -124,6 +116,13 @@ public abstract class Command implements CommandExecutor {
             }
 
         } else {
+            Optional<SubCommand> noArgsCommand = this.findSubcommand(NoArguments.class);
+
+            if (noArgsCommand.isPresent()) {
+                noArgsCommand.get().perform(sender,args);
+                return true;
+            }
+
             String noArgs = this.customization.getNoArgs(command.getName());
 
             if (noArgs != null) {
@@ -163,5 +162,24 @@ public abstract class Command implements CommandExecutor {
         } catch (NoSuchMethodException e) {
             plugin.getLogger().log(Level.SEVERE,"Unable to check for Permission annotation.", e);
         }
+    }
+
+    /**
+     * Find a subcommand annotated with something
+     * @param annotation Annotation to find
+     * @return Optional subcommand
+     */
+    private Optional<SubCommand> findSubcommand(Class<? extends Annotation> annotation) {
+        return subcommands.stream()
+                .filter((cmd) -> {
+                    try {
+                        return cmd.getClass().getMethod("getName").isAnnotationPresent(annotation);
+                    } catch (NoSuchMethodException e) {
+                        e.printStackTrace();
+                    }
+
+                    return false;
+                })
+                .findFirst();
     }
 }
