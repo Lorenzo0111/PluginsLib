@@ -50,6 +50,11 @@ javadoc {
     destinationDir = new File("${System.getenv("javadocs")}/pluginslib/${version}")
 }
 
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
 publishing {
     publications {
         maven(MavenPublication) {
