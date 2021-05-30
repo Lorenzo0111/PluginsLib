@@ -147,7 +147,7 @@ public class Table {
      * Run something async
      * @param runnable Runnable to run
      */
-    private void run(BukkitRunnable runnable) {
+    public void run(BukkitRunnable runnable) {
         runnable.runTaskAsynchronously(plugin);
     }
 
@@ -156,5 +156,19 @@ public class Table {
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * @return Connection
+     */
+    public Connection getConnection() {
+        return connection;
+    }
+
+    /**
+     * @return Table columns
+     */
+    public List<Column> getColumns() {
+        return columns;
     }
 }
