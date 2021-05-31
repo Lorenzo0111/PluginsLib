@@ -5,16 +5,14 @@ plugins {
 }
 
 group 'me.lorenzo0111'
-version '1.2.0'
+version '1.2.1.1'
 
 repositories {
     mavenCentral()
     maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
-    maven { url 'https://repo.bristermitten.me/repository/maven-public/' }
 }
 
 dependencies {
-    implementation 'me.bristermitten:pdm:0.0.33'
     compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
     compileOnly 'org.jetbrains:annotations:21.0.1'
     testCompileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'

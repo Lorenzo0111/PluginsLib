@@ -1,5 +1,8 @@
 # Changelog
 
+`v1.2.1.1`
+Fixed Dependencies Manager
+
 `v1.2.0`
 Added Dependencies Manager
 
