@@ -41,11 +41,41 @@ public class Debugger {
     /**
      * @param plugin Owner of the debugger
      * @param keys Other keys to debug
+     * @deprecated Replaced with {@link Debugger#Debugger(Debuggable)}
      */
+    @Deprecated
     public Debugger(JavaPlugin plugin,@Nullable Map<String,Object> keys) {
-        this.plugin = plugin;
+        this(createDebuggable(plugin,keys));
+    }
+
+    /**
+     * @param debuggable Debuggable to debug
+     */
+    public Debugger(Debuggable debuggable) {
+        this.plugin = debuggable.getPlugin();
         this.logger = plugin.getLogger();
-        this.keys = keys;
+        this.keys = debuggable.getKeys();
+    }
+
+    /**
+     * Create a debuggable
+     * @param plugin Plugin to debug
+     * @param keys Keys to debug
+     * @return A new debuggable
+     */
+    private static Debuggable createDebuggable(JavaPlugin plugin, @Nullable Map<String,Object> keys) {
+        return new Debuggable() {
+            @Nullable
+            @Override
+            public Map<String, Object> getKeys() {
+                return keys;
+            }
+
+            @Override
+            public JavaPlugin getPlugin() {
+                return plugin;
+            }
+        };
     }
 
     /**
