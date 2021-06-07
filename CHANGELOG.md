@@ -1,5 +1,9 @@
 # Changelog
 
+`v1.2.2`
+Added other methods to Table,
+Improved Debugger
+
 `v1.2.1.1`
 Fixed Dependencies Manager
 
@@ -7,7 +11,7 @@ Fixed Dependencies Manager
 Added Dependencies Manager
 
 `v1.1.2.2`
-Added more methods to Table
+Added more methods to Table,
 Added NoArgument annotation
 
 `v1.1.2.1`

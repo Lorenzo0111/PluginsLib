@@ -31,9 +31,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * SQL Table
@@ -141,6 +143,68 @@ public class Table {
                 }
             }
         });
+    }
+
+    /**
+     * Remove something from the table
+     * @param key key to find
+     * @param value Value of the key
+     * @return A completable future with the amount of the affected tables
+     */
+    public CompletableFuture<Integer> removeWhere(String key, Object value) {
+        final CompletableFuture<Integer> completableFuture = new CompletableFuture<>();
+
+        this.run(new BukkitRunnable() {
+            @Override
+            public void run() {
+                try {
+                    final PreparedStatement statement = getConnection().prepareStatement(String.format("DELETE FROM %s WHERE %s = ?;", getName(), key));
+                    statement.setObject(1, value);
+
+                    completableFuture.complete(statement.executeUpdate());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        return completableFuture;
+    }
+
+    /**
+     * Remove something from the table
+     * @param key key to find
+     * @param serializable serializable that contains the key
+     * @return A completable future with the amount of the affected tables
+     */
+    public CompletableFuture<Integer> removeWhere(String key, DatabaseSerializable serializable) {
+        return this.removeWhere(key,serializable.serialize().get(key));
+    }
+
+    /**
+     * Find something inside the table
+     * @param key Key to find
+     * @param value Value to find
+     * @return A ResultSet
+     */
+    public CompletableFuture<ResultSet> find(String key, Object value) {
+        final CompletableFuture<ResultSet> completableFuture = new CompletableFuture<>();
+
+        this.run(new BukkitRunnable() {
+            @Override
+            public void run() {
+                try {
+                    final PreparedStatement statement = getConnection().prepareStatement(String.format("SELECT * FROM %s WHERE %s = ?;", getName(), key));
+                    statement.setObject(1, value);
+
+                    completableFuture.complete(statement.executeQuery());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        return completableFuture;
     }
 
     /**
