@@ -31,10 +31,7 @@ import me.lorenzo0111.pluginslib.database.connection.JavaConnection;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -81,7 +78,9 @@ public class Table {
                 columns.forEach(column -> query.append(String.format("`%s` %s,",column.getName(),column.getType())));
 
                 try {
-                    connection.getConnection().createStatement().executeUpdate(StringUtils.removeLastChar(query.toString()) + ");");
+                    Statement statement = connection.getConnection().createStatement();
+                    statement.executeUpdate(StringUtils.removeLastChar(query.toString()) + ");");
+                    statement.close();
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
@@ -129,7 +128,7 @@ public class Table {
                     }
 
                     statement.executeUpdate();
-
+                    statement.close();
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
@@ -145,7 +144,9 @@ public class Table {
             @Override
             public void run() {
                 try {
-                    connection.getConnection().createStatement().executeUpdate("DELETE FROM " + name);
+                    Statement statement = connection.getConnection().createStatement();
+                    statement.executeUpdate("DELETE FROM " + name);
+                    statement.close();
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
@@ -170,6 +171,7 @@ public class Table {
                     statement.setObject(1, value);
 
                     completableFuture.complete(statement.executeUpdate());
+                    statement.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -206,6 +208,7 @@ public class Table {
                     statement.setObject(1, value);
 
                     completableFuture.complete(statement.executeQuery());
+                    statement.closeOnCompletion();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
