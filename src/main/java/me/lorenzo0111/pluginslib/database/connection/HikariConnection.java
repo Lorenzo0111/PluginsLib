@@ -8,6 +8,9 @@ import java.sql.SQLException;
 public class HikariConnection implements IConnectionHandler {
     private final HikariDataSource dataSource;
 
+    /**
+     * @param dataSource Hikari data source
+     */
     public HikariConnection(HikariDataSource dataSource) {
         this.dataSource = dataSource;
     }
@@ -15,5 +18,10 @@ public class HikariConnection implements IConnectionHandler {
     @Override
     public Connection getConnection() throws SQLException {
         return dataSource.getConnection();
+    }
+
+    @Override
+    public void close() throws SQLException {
+        dataSource.close();
     }
 }

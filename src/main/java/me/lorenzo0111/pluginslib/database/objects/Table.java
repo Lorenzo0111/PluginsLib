@@ -235,6 +235,7 @@ public class Table {
 
     /**
      * @return Connection
+     * @throws SQLException if something goes wrong
      */
     public Connection getConnection() throws SQLException {
         return connection.getConnection();
