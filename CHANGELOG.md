@@ -1,5 +1,9 @@
 # Changelog
 
+`v1.3`
+New DependencyManager (beta package) with SlimJar,
+Hikari connection support
+
 `v1.2.2`
 Added other methods to Table,
 Improved Debugger

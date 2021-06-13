@@ -26,6 +26,8 @@ package me.lorenzo0111.pluginslib.database.objects;
 
 import me.lorenzo0111.pluginslib.StringUtils;
 import me.lorenzo0111.pluginslib.database.DatabaseSerializable;
+import me.lorenzo0111.pluginslib.database.connection.IConnectionHandler;
+import me.lorenzo0111.pluginslib.database.connection.JavaConnection;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -43,7 +45,7 @@ import java.util.concurrent.CompletableFuture;
 @SuppressWarnings("unused")
 public class Table {
     private final JavaPlugin plugin;
-    private final Connection connection;
+    private final IConnectionHandler connection;
     private final String name;
     private final List<Column> columns;
 
@@ -53,8 +55,14 @@ public class Table {
      * @param name Name of the table
      * @param columns List of columns
      * @see Column
+     * @deprecated Use {@link Table#Table(JavaPlugin, IConnectionHandler, String, List)}
      */
+    @Deprecated
     public Table(JavaPlugin plugin, Connection connection, String name, List<Column> columns) {
+        this(plugin,new JavaConnection(connection),name,columns);
+    }
+
+    public Table(JavaPlugin plugin, IConnectionHandler connection, String name, List<Column> columns) {
         this.plugin = plugin;
         this.connection = connection;
         this.name = name;
@@ -73,7 +81,7 @@ public class Table {
                 columns.forEach(column -> query.append(String.format("`%s` %s,",column.getName(),column.getType())));
 
                 try {
-                    connection.createStatement().executeUpdate(StringUtils.removeLastChar(query.toString()) + ");");
+                    connection.getConnection().createStatement().executeUpdate(StringUtils.removeLastChar(query.toString()) + ");");
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
@@ -112,7 +120,7 @@ public class Table {
 
                     builder.append(");");
 
-                    final PreparedStatement statement = connection.prepareStatement(builder.toString());
+                    final PreparedStatement statement = connection.getConnection().prepareStatement(builder.toString());
 
                     int i = 1;
                     for (Object obj : map.values()) {
@@ -137,7 +145,7 @@ public class Table {
             @Override
             public void run() {
                 try {
-                    connection.createStatement().executeUpdate("DELETE FROM " + name);
+                    connection.getConnection().createStatement().executeUpdate("DELETE FROM " + name);
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
@@ -225,8 +233,8 @@ public class Table {
     /**
      * @return Connection
      */
-    public Connection getConnection() {
-        return connection;
+    public Connection getConnection() throws SQLException {
+        return connection.getConnection();
     }
 
     /**

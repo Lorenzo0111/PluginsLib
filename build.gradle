@@ -6,7 +6,7 @@ plugins {
 }
 
 group 'me.lorenzo0111'
-version '1.2.3'
+version '1.3'
 
 repositories {
     mavenCentral()
@@ -14,6 +14,7 @@ repositories {
 }
 
 dependencies {
+    compileOnly 'com.zaxxer:HikariCP:4.0.3'
     compileOnly 'org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT'
     compileOnly 'org.jetbrains:annotations:21.0.1'
 }
