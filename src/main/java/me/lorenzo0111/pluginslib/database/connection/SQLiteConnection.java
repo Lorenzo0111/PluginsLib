@@ -32,7 +32,8 @@ public class SQLiteConnection extends JavaConnection {
     }
 
     private static Connection create(File file) throws SQLException {
-        file.mkdirs();
+        file.getParentFile().mkdirs();
+        file.createNewFile();
         return DriverManager.getConnection("jdbc:sqlite:" + file.getAbsolutePath());
     }
 }

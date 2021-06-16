@@ -1,5 +1,8 @@
 # Changelog
 
+`v1.3.2 - v1.3.3`
+Fixed SQLite connection
+
 `v1.3.1`
 Improved Connections,
 Improved tables
