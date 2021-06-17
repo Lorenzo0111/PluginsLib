@@ -36,4 +36,8 @@ public final class StringUtils {
     public static String removeLastChars(String str, int chars) {
         return str.substring(0, str.length() - chars);
     }
+
+    public static String capitalize(String str) {
+        return str.substring(0, 1).toUpperCase() + str.substring(1);
+    }
 }

@@ -1,5 +1,12 @@
 # Changelog
 
+`v1.4`
+Really improved the database framework,
+Added other methods to StringUtils,
+Fully Hikari support,
+Added Sponge Configurate support,
+Improved configuration support
+
 `v1.3.2 - v1.3.3`
 Fixed SQLite connection
 

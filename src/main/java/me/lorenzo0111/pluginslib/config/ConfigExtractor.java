@@ -24,7 +24,12 @@
 
 package me.lorenzo0111.pluginslib.config;
 
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.Nullable;
+import org.spongepowered.configurate.ConfigurateException;
+import org.spongepowered.configurate.ConfigurationNode;
+import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,6 +39,7 @@ import java.util.Objects;
 
 @SuppressWarnings("unused")
 public class ConfigExtractor {
+    private File file;
     private final File directory;
     private final String name;
     private final Class<?> pluginClass;
@@ -45,7 +51,7 @@ public class ConfigExtractor {
     }
 
     @Nullable
-    public File extract() {
+    public ConfigExtractor extract() {
         if (!directory.exists() && !directory.mkdir()) {
             return null;
         }
@@ -58,11 +64,31 @@ public class ConfigExtractor {
                 Files.copy(in, result.toPath());
             } catch (IOException e) {
                 e.printStackTrace();
-                return null;
+                return this;
             }
         }
 
-        return result;
+        this.file = result;
+        return this;
+    }
+
+    @Nullable
+    public FileConfiguration toBukkit() {
+        return YamlConfiguration.loadConfiguration(file);
+    }
+
+    @Nullable
+    public ConfigurationNode toConfigurate() throws ConfigurateException {
+        YamlConfigurationLoader loader = YamlConfigurationLoader.builder()
+                .path(file.toPath())
+                .build();
+
+        return loader.load();
+    }
+
+    @Nullable
+    public File getFile() {
+        return file;
     }
 
     public File getDirectory() {

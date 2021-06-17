@@ -32,6 +32,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -86,6 +88,67 @@ public class Table {
                 }
             }
         });
+    }
+
+    /**
+     * Convert a ResultSet to a Database Serializable
+     * @param set ResultSet to convert
+     * @param serializable an instance of a serializable that has the {@link DatabaseSerializable#from(Map)} method
+     * @return A future with a list of serializable
+     */
+    public CompletableFuture<List<DatabaseSerializable>> convertResult(ResultSet set, DatabaseSerializable serializable) {
+        CompletableFuture<List<DatabaseSerializable>> future = new CompletableFuture<>();
+
+        this.run(new BukkitRunnable() {
+            @Override
+            public void run() {
+                try {
+                    List<DatabaseSerializable> list = new ArrayList<>();
+
+                    while (set.next()) {
+                        Map<String,Object> map = new HashMap<>();
+                        columns.forEach((column) -> {
+                            try {
+                                map.put(column.getName(),set.getObject(column.getName()));
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                        list.add(serializable.from(map));
+                    }
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        return future;
+    }
+
+    /**
+     * Get all items from table
+     */
+    public CompletableFuture<ResultSet> all() {
+        CompletableFuture<ResultSet> future = new CompletableFuture<>();
+
+        this.run(new BukkitRunnable() {
+            @Override
+            public void run() {
+                try {
+                    PreparedStatement statement = connection.getConnection()
+                            .prepareStatement(String.format("SELECT * FROM %s;", getName()));
+
+                    ResultSet resultSet = statement.executeQuery();
+                    future.complete(resultSet);
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        return future;
     }
 
     /**

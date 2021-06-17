@@ -1,4 +1,4 @@
-package me.lorenzo0111.pluginslib.dependency.beta;
+package me.lorenzo0111.pluginslib.dependency.slimjar;
 
 import io.github.slimjar.app.builder.ApplicationBuilder;
 import org.bukkit.plugin.java.JavaPlugin;

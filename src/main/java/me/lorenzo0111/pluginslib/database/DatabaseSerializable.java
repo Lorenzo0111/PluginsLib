@@ -33,6 +33,13 @@ import java.util.Map;
  */
 @SuppressWarnings("unused")
 public interface DatabaseSerializable {
+
+    /**
+     * @param keys keys, same of {@link DatabaseSerializable#serialize()}
+     * @return the instance of a database serializable
+     */
+    DatabaseSerializable from(Map<String,Object> keys);
+
     /**
      * @return Name of the table
      */
