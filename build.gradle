@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.spongepowered:configurate-yaml:4.0.0'
+    implementation 'org.spongepowered:configurate-yaml:4.1.1'
     compileOnly 'com.zaxxer:HikariCP:4.0.3'
     compileOnly 'org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT'
     compileOnly 'org.jetbrains:annotations:21.0.1'
