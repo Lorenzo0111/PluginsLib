@@ -26,7 +26,7 @@ subprojects {
     apply plugin: "net.kyori.indra.publishing"
 
 
-    group 'me.lorenzo0111'
+    group 'space.rocketplugins'
     version '2.0'
 
     indra {
