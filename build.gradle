@@ -66,6 +66,10 @@ subprojects {
     }
 
     shadowJar {
+        archiveFileName = "${project.name}-${project.version}.jar"
+    }
+
+    shadowJar {
         relocate("org.yaml.snakeyaml","${base}.yaml")
         relocate("org.spongepowered.configurate","${base}.configurate")
         relocate("org.checkerframework","${base}.checkerframework")
