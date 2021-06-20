@@ -15,7 +15,7 @@ subprojects {
     apply plugin: "io.github.slimjar"
 
     group 'me.lorenzo0111'
-    version '1.4'
+    version '2.0'
 
     repositories {
         mavenCentral()
