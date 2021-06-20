@@ -13,6 +13,7 @@ subprojects {
     apply plugin: "java"
     apply plugin: "com.github.johnrengelman.shadow"
     apply plugin: "io.github.slimjar"
+    apply plugin: "maven-publish"
 
     group 'me.lorenzo0111'
     version '2.0'
