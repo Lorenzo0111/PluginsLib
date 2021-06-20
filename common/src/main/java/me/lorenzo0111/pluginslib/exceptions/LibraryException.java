@@ -22,6 +22,17 @@
  * SOFTWARE.
  */
 
-rootProject.name = 'pluginslib'
+package me.lorenzo0111.pluginslib.exceptions;
 
-include('common','bukkit','sponge')
+/**
+ * An exception that is called when something in this lib does not work
+ */
+public class LibraryException extends RuntimeException {
+    public LibraryException(String message) {
+        super(message);
+    }
+
+    public LibraryException(String message, Throwable cause) {
+        super(message, cause);
+    }
+}

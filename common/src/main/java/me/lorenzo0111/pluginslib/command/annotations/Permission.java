@@ -22,6 +22,27 @@
  * SOFTWARE.
  */
 
-rootProject.name = 'pluginslib'
+package me.lorenzo0111.pluginslib.command.annotations;
 
-include('common','bukkit','sponge')
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+/**
+ * Add a permission
+ * Applicable to {@link me.lorenzo0111.pluginslib.command.SubCommand#handleSubcommand} and {@link me.lorenzo0111.pluginslib.command.ICommand#ICommand}
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.METHOD, ElementType.CONSTRUCTOR})
+public @interface Permission {
+    /**
+     * @return The permission
+     */
+    String value();
+
+    /**
+     * @return The no permission message
+     */
+    String msg() default "&c&lError! &cYou do not have the permission to execute this command.";
+}

@@ -1,7 +1,0 @@
-name: ExamplePlugin
-main: me.lorenzo0111.example.ExamplePlugin
-version: 0.0
-description: Example plugin with no utility
-commands:
-  example:
-    description: Example command

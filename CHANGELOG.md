@@ -1,5 +1,8 @@
 # Changelog
 
+`v2.0`
+Totally rewrite for multiplatform support
+
 `v1.4`
 Really improved the database framework,
 Added other methods to StringUtils,

@@ -5,95 +5,50 @@ plugins {
     id 'io.github.slimjar' version '1.2.1'
 }
 
-group 'me.lorenzo0111'
-version '1.4'
-
-repositories {
-    mavenCentral()
-    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+ext {
+    base = 'me.lorenzo0111.pluginslib.libraries'
 }
 
-dependencies {
-    implementation 'org.spongepowered:configurate-yaml:4.1.1'
-    compileOnly 'com.zaxxer:HikariCP:4.0.3'
-    compileOnly 'org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT'
-    compileOnly 'org.jetbrains:annotations:21.0.1'
-}
+subprojects {
+    apply plugin: "java"
+    apply plugin: "com.github.johnrengelman.shadow"
+    apply plugin: "io.github.slimjar"
 
-javadoc {
-    options.links(
-            'https://javadoc.io/static/org.jetbrains/annotations/20.1.0/',
-            'https://docs.oracle.com/javase/8/docs/api/',
-            'https://papermc.io/javadocs/paper/1.16/'
-    )
-    source = sourceSets.main.allJava
-    destinationDir = new File("${System.getenv("javadocs")}/pluginslib/${version}")
-}
-
-java {
-    withJavadocJar()
-    withSourcesJar()
-}
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from components.java
-
-            pom {
-                name = 'PluginsLib'
-                description = 'A library for minecraft plugins'
-                url = 'https://github.com/Lorenzo0111/PluginsLib'
-
-                licenses {
-                    license {
-                        name = 'MIT License'
-                        url = 'https://github.com/Lorenzo0111/PluginsLib/blob/master/LICENSE'
-                    }
-                }
-                developers {
-                    developer {
-                        id = 'lorenzo0111'
-                        name = 'Lorenzo0111'
-                        email = 'lorenzo@rocketplugins.space'
-                    }
-                }
-                scm {
-                    connection = 'scm:git:git://github.com/Lorenzo0111/PluginsLib.git'
-                    developerConnection = 'scm:git:ssh://github.com/Lorenzo0111/PluginsLib.git'
-                    url = 'https://github.com/Lorenzo0111/PluginsLib'
-                }
-            }
-
-        }
-    }
+    group 'me.lorenzo0111'
+    version '1.4'
 
     repositories {
-        maven {
-            url 'https://repo.repsy.io/mvn/lorenzo0111/public'
-            credentials {
-                username System.getenv("REPO_USERNAME")
-                password System.getenv("REPO_PASSWORD")
-            }
-        }
-        /* maven {
-            url = uri("https://maven.pkg.github.com/lorenzo0111/pluginslib")
-            credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USERNAME")
-                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
-            }
-        } */
+        mavenCentral()
     }
 
-    publications {
-        gpr(MavenPublication) {
-            from(components.java)
-        }
+    javadoc {
+        options.links(
+                'https://javadoc.io/static/org.jetbrains/annotations/20.1.0/',
+                'https://docs.oracle.com/javase/8/docs/api/',
+                'https://papermc.io/javadocs/paper/1.16/'
+        )
+        source = sourceSets.main.allJava
+        // destinationDir = new File("${System.getenv("javadocs")}/pluginslib/${version}")
     }
-}
 
-shadowJar {
-    archiveFileName.set("${baseName}-${version}.${extension}")
+    java {
+        withJavadocJar()
+        withSourcesJar()
+    }
+
+    dependencies {
+        compileOnly 'org.jetbrains:annotations:21.0.1'
+    }
+
+    shadowJar {
+        relocate("org.yaml.snakeyaml","${base}.yaml")
+        relocate("org.spongepowered.configurate","${base}.configurate")
+        relocate("org.checkerframework","${base}.checkerframework")
+        relocate("io.leangen.geantyref","${base}.geantyref")
+        relocate("com.google","${base}")
+    }
+
+    tasks.build.dependsOn tasks.shadowJar
 }
 
 tasks.build.dependsOn tasks.shadowJar
