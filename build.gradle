@@ -7,6 +7,8 @@ plugins {
     id "net.kyori.indra.publishing.sonatype" version "2.0.5"
 }
 
+version "2.0"
+
 ext {
     base = 'me.lorenzo0111.pluginslib.libraries'
 }
