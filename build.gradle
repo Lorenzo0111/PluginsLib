@@ -38,6 +38,8 @@ subprojects {
     apply plugin: "com.github.johnrengelman.shadow"
     apply plugin: "io.github.slimjar"
     apply plugin: "maven-publish"
+    apply plugin: "net.kyori.indra.publishing"
+
 
     group 'me.lorenzo0111'
     version '2.0'
