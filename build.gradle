@@ -8,6 +8,7 @@ plugins {
 }
 
 version "2.0"
+description "Library for minecraft plugins"
 
 ext {
     base = 'me.lorenzo0111.pluginslib.libraries'
