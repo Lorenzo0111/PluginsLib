@@ -14,21 +14,6 @@ ext {
     base = 'me.lorenzo0111.pluginslib.libraries'
 }
 
-indra {
-    mitLicense()
-    scm(scm -> scm
-            .connection(String.format("scm:git:https://github.com/FoxPowered/PluginsLib.git"))
-            .developerConnection(String.format("scm:git:ssh://git@github.com/FoxPowered/PluginsLib.git"))
-            .url(String.format("https://github.com/FoxPowered/PluginsLib")))
-    issues(issues ->
-            issues.url("https://github.com/FoxPowered/PluginsLib/issues")
-            .system("GitHub"))
-}
-
-indraSonatype {
-    useAlternateSonatypeOSSHost("s01")
-}
-
 shadowJar {
     archiveFileName = "${project.name}-${project.version}.jar"
 }
@@ -43,6 +28,21 @@ subprojects {
 
     group 'me.lorenzo0111'
     version '2.0'
+
+    indra {
+        mitLicense()
+        scm(scm -> scm
+                .connection(String.format("scm:git:https://github.com/FoxPowered/PluginsLib.git"))
+                .developerConnection(String.format("scm:git:ssh://git@github.com/FoxPowered/PluginsLib.git"))
+                .url(String.format("https://github.com/FoxPowered/PluginsLib")))
+        issues(issues ->
+                issues.url("https://github.com/FoxPowered/PluginsLib/issues")
+                        .system("GitHub"))
+    }
+
+    indraSonatype {
+        useAlternateSonatypeOSSHost("s01")
+    }
 
     repositories {
         mavenCentral()
