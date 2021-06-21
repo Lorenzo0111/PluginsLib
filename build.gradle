@@ -1,10 +1,9 @@
 plugins {
     id 'java'
-    id 'maven-publish'
     id "com.github.johnrengelman.shadow" version "7.0.0"
     id 'io.github.slimjar' version '1.2.1'
     id "net.kyori.indra" version "2.0.5"
-    id "net.kyori.indra.publishing.sonatype" version "2.0.5"
+    // id "net.kyori.indra.publishing.sonatype" version "2.0.5"
 }
 
 version "2.0"
@@ -22,7 +21,6 @@ subprojects {
     apply plugin: "java"
     apply plugin: "com.github.johnrengelman.shadow"
     apply plugin: "io.github.slimjar"
-    apply plugin: "maven-publish"
     apply plugin: "net.kyori.indra.publishing"
 
 
@@ -31,17 +29,8 @@ subprojects {
 
     indra {
         mitLicense()
-        scm(scm -> scm
-                .connection(String.format("scm:git:https://github.com/FoxPowered/PluginsLib.git"))
-                .developerConnection(String.format("scm:git:ssh://git@github.com/FoxPowered/PluginsLib.git"))
-                .url(String.format("https://github.com/FoxPowered/PluginsLib")))
-        issues(issues ->
-                issues.url("https://github.com/FoxPowered/PluginsLib/issues")
-                        .system("GitHub"))
-    }
-
-    indraSonatype {
-        useAlternateSonatypeOSSHost("s01")
+        github("FoxPowered","PluginsLib")
+        publishAllTo("repsy", "https://repo.repsy.io/mvn/lorenzo0111/public")
     }
 
     repositories {
