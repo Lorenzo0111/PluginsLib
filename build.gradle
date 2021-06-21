@@ -31,13 +31,7 @@ subprojects {
 
     indra {
         mitLicense()
-        scm(scm -> scm
-                .connection(String.format("scm:git:https://github.com/FoxPowered/PluginsLib.git"))
-                .developerConnection(String.format("scm:git:ssh://git@github.com/FoxPowered/PluginsLib.git"))
-                .url(String.format("https://github.com/FoxPowered/PluginsLib")))
-        issues(issues ->
-                issues.url("https://github.com/FoxPowered/PluginsLib/issues")
-                        .system("GitHub"))
+        github("FoxPowered","PluginsLib")
     }
 
     indraSonatype {
@@ -73,7 +67,6 @@ subprojects {
 
     shadowJar {
         relocate("org.yaml.snakeyaml","${base}.yaml")
-        relocate("org.spongepowered.configurate","${base}.configurate")
         relocate("org.checkerframework","${base}.checkerframework")
         relocate("io.leangen.geantyref","${base}.geantyref")
         relocate("com.google","${base}")
