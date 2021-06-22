@@ -1,9 +1,8 @@
 plugins {
     id 'java'
+    id 'maven-publish'
     id "com.github.johnrengelman.shadow" version "7.0.0"
     id 'io.github.slimjar' version '1.2.1'
-    id "net.kyori.indra" version "2.0.5"
-    // id "net.kyori.indra.publishing.sonatype" version "2.0.5"
 }
 
 version "2.0"
@@ -13,25 +12,19 @@ ext {
     base = 'me.lorenzo0111.pluginslib.libraries'
 }
 
+
 shadowJar {
     archiveFileName = "${project.name}-${project.version}.jar"
 }
 
 subprojects {
     apply plugin: "java"
+    apply plugin: "maven-publish"
     apply plugin: "com.github.johnrengelman.shadow"
     apply plugin: "io.github.slimjar"
-    apply plugin: "net.kyori.indra.publishing"
 
-
-    group 'space.rocketplugins'
+    group 'space.rocketplugins.pluginslib'
     version '2.0'
-
-    indra {
-        mitLicense()
-        github("FoxPowered","PluginsLib")
-        publishAllTo("repsy", "https://repo.repsy.io/mvn/lorenzo0111/public")
-    }
 
     repositories {
         mavenCentral()
@@ -44,7 +37,6 @@ subprojects {
                 'https://papermc.io/javadocs/paper/1.16/'
         )
         source = sourceSets.main.allJava
-        // destinationDir = new File("${System.getenv("javadocs")}/pluginslib/${version}")
     }
 
     java {
@@ -67,7 +59,55 @@ subprojects {
         relocate("com.google","${base}")
     }
 
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                from components.java
+
+                pom {
+                    name = 'PluginsLib'
+                    description = 'A library for minecraft plugins'
+                    url = 'https://github.com/Lorenzo0111/PluginsLib'
+
+                    licenses {
+                        license {
+                            name = 'MIT License'
+                            url = 'https://github.com/Lorenzo0111/PluginsLib/blob/master/LICENSE'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'lorenzo0111'
+                            name = 'Lorenzo0111'
+                            email = 'lorenzo@rocketplugins.space'
+                        }
+                    }
+                    scm {
+                        connection = 'scm:git:git://github.com/Lorenzo0111/PluginsLib.git'
+                        developerConnection = 'scm:git:ssh://github.com/Lorenzo0111/PluginsLib.git'
+                        url = 'https://github.com/Lorenzo0111/PluginsLib'
+                    }
+                }
+
+            }
+        }
+
+        repositories {
+            maven {
+                url 'https://repo.repsy.io/mvn/lorenzo0111/public'
+                credentials {
+                    username repsyUsername
+                    password repsyPassword
+                }
+            }
+        }
+
+        publications {
+            gpr(MavenPublication) {
+                from(components.java)
+            }
+        }
+    }
+
     tasks.build.dependsOn tasks.shadowJar
 }
-
-tasks.build.dependsOn tasks.shadowJar
