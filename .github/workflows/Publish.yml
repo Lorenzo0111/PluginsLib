@@ -1,9 +1,9 @@
 name: Publish
 on:
-  #release:
-    #types:
-      #- created
-      #- edited
+  release:
+    types:
+      - created
+      - edited
   workflow_dispatch:
 jobs:
   publish:
@@ -15,10 +15,8 @@ jobs:
         with:
           java-version: '8'
           distribution: 'adopt'
-      #- name: Publish package
-        #run: gradle publish
-        #env:
-          #REPO_USERNAME: ${{ secrets.REPO_USERNAME }}
-          #REPO_PASSWORD: ${{ secrets.REPO_PASSWORD }}
-          #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          #GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
+      - name: Publish package
+        run: gradle publish
+        env:
+          REPO_USERNAME: ${{ secrets.REPO_USERNAME }}
+          REPO_PASSWORD: ${{ secrets.REPO_PASSWORD }}
