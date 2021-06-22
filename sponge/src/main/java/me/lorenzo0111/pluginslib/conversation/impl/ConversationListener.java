@@ -24,7 +24,7 @@ public class ConversationListener {
             return;
         }
 
-        conversation.handle(event.getMessage());
+        conversation.handle(player,event.getMessage());
     }
 
 }

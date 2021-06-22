@@ -24,7 +24,7 @@ subprojects {
     apply plugin: "io.github.slimjar"
 
     group 'space.rocketplugins.pluginslib'
-    version '2.0'
+    version '2.0.1.0'
 
     repositories {
         mavenCentral()
