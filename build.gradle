@@ -24,7 +24,7 @@ subprojects {
     apply plugin: "io.github.slimjar"
 
     group 'space.rocketplugins.pluginslib'
-    version '2.0.1.0'
+    version '2.0.1.2'
 
     repositories {
         mavenCentral()
@@ -54,9 +54,6 @@ subprojects {
 
     shadowJar {
         relocate("org.yaml.snakeyaml","${base}.yaml")
-        relocate("org.checkerframework","${base}.checkerframework")
-        relocate("io.leangen.geantyref","${base}.geantyref")
-        relocate("com.google","${base}")
     }
 
     publishing {

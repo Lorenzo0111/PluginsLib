@@ -1,8 +1,8 @@
 package me.lorenzo0111.pluginslib.command;
 
+import me.lorenzo0111.pluginslib.audience.User;
 import me.lorenzo0111.pluginslib.command.annotations.Permission;
 import me.lorenzo0111.pluginslib.exceptions.LibraryException;
-import net.kyori.adventure.audience.Audience;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.annotation.Annotation;
@@ -66,7 +66,7 @@ public abstract class ICommand<T> {
         try {
             // Check if the subcommand has a permission
 
-            Method method = subCommand.getClass().getMethod("handleSubcommand", Audience.class, String[].class);
+            Method method = subCommand.getClass().getMethod("handleSubcommand", User.class, String[].class);
 
             if (method.isAnnotationPresent(Permission.class)) {
 
