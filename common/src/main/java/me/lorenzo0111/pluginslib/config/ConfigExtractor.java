@@ -24,6 +24,7 @@
 
 package me.lorenzo0111.pluginslib.config;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.configurate.ConfigurateException;
 import org.spongepowered.configurate.ConfigurationNode;
@@ -48,10 +49,13 @@ public class ConfigExtractor {
         this.pluginClass = pluginClass;
     }
 
-    @Nullable
+    /**
+     * @return The instance of the extractor
+     */
+    @NotNull
     public ConfigExtractor extract() {
         if (!directory.exists() && !directory.mkdir()) {
-            return null;
+            return this;
         }
 
         File result = new File(directory, name);

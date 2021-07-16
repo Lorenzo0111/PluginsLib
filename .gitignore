@@ -126,3 +126,5 @@ run/
 gradle.properties
 ignore/
 */null/
+
+javadocs/

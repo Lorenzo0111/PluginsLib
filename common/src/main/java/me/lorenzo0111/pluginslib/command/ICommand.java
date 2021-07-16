@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @param <T> Command
+ */
 public abstract class ICommand<T> {
     private final T plugin;
     private String permission = null;

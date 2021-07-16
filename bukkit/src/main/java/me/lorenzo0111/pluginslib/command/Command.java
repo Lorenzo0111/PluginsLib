@@ -13,6 +13,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * Command
+ */
 public abstract class Command extends ICommand<JavaPlugin> implements CommandExecutor {
 
     /**
@@ -24,6 +27,9 @@ public abstract class Command extends ICommand<JavaPlugin> implements CommandExe
         super(plugin, command, customization);
     }
 
+    /**
+     * @param command Register the command in the plugin manager
+     */
     @Override
     public void register(String command) {
         Objects.requireNonNull(this.getPlugin().getCommand(command)).setExecutor(this);

@@ -24,3 +24,32 @@ jobs:
         with:
           name: PluginsLib
           path: build/libs/pluginslib-*.jar
+  javadocs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 8
+        uses: actions/setup-java@v2
+        with:
+          java-version: '8'
+          distribution: 'adopt'
+
+      - name: Generate Javadocs with Gradle
+        run: ./gradlew javadoc
+
+      - name: Prepare Javadocs
+        if: ${{ success() && github.event_name == 'push' && github.repository == 'FoxPowered/PluginsLib' }}
+        run: |
+          mv common/build/docs/javadoc/ javadocs/
+          cp -r bukkit/build/docs/javadoc/ javadocs/EssentialsAntiBuild/
+          cp -r sponge/build/docs/javadoc/ javadocs/EssentialsChat/
+
+      - name: Deploy Javadocs
+        if: ${{ github.event_name == 'push' && github.repository == 'FoxPowered/PluginsLib' }}
+        uses: netlify/actions/cli@master
+        with:
+          args: deploy --dir=build/docs/javadoc --prod --message="GitHubActionsDeploy"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
