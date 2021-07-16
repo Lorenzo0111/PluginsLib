@@ -49,7 +49,7 @@ jobs:
         if: ${{ github.event_name == 'push' && github.repository == 'FoxPowered/PluginsLib' }}
         uses: netlify/actions/cli@master
         with:
-          args: deploy --dir=build/docs/javadoc --prod --message="GitHubActionsDeploy"
+          args: deploy --dir=javadocs/ --prod --message="GitHubActionsDeploy"
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
