@@ -15,14 +15,9 @@ shadowJar {
     archiveFileName = "${project.name}-${project.version}.jar"
 }
 
-indra {
-    github("FoxPowered","PluginsLib")
-    publishReleasesTo("repsy", "https://repo.repsy.io/mvn/lorenzo0111/public")
-    mitLicense()
-}
-
 subprojects {
     apply plugin: "java"
+    apply plugin: "net.kyori.indra.publishing"
     apply plugin: "com.github.johnrengelman.shadow"
 
     group 'space.rocketplugins.pluginslib'
@@ -57,10 +52,13 @@ subprojects {
 
     shadowJar {
         archiveFileName = "${project.name}-${project.version}.jar"
+        relocate("org.yaml.snakeyaml","${base}.yaml")
     }
 
-    shadowJar {
-        relocate("org.yaml.snakeyaml","${base}.yaml")
+    indra {
+        github("FoxPowered","PluginsLib")
+        publishReleasesTo("repsy", "https://repo.repsy.io/mvn/lorenzo0111/public")
+        mitLicense()
     }
 
     tasks.build.dependsOn tasks.shadowJar
