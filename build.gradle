@@ -1,7 +1,6 @@
 plugins {
     id 'java'
     id "net.kyori.indra.publishing" version "2.0.6"
-    id "net.kyori.indra.publishing.sonatype" version "2.0.6"
     id "com.github.johnrengelman.shadow" version "7.0.0"
 }
 
@@ -20,10 +19,6 @@ indra {
     github("FoxPowered","PluginsLib")
     publishReleasesTo("repsy", "https://repo.repsy.io/mvn/lorenzo0111/public")
     mitLicense()
-}
-
-indraSonatype {
-    useAlternateSonatypeOSSHost("s01")
 }
 
 subprojects {
