@@ -4,7 +4,7 @@ plugins {
     id "com.github.johnrengelman.shadow" version "7.0.0"
 }
 
-version "2.0.2"
+version "2.0.3"
 description "Library for minecraft plugins"
 
 ext {
@@ -21,7 +21,7 @@ subprojects {
     apply plugin: "com.github.johnrengelman.shadow"
 
     group 'space.rocketplugins.pluginslib'
-    version '2.0.2'
+    version '2.0.3'
 
     repositories {
         mavenCentral()
@@ -42,12 +42,12 @@ subprojects {
     }
 
     repositories {
-        maven { url = uri("https://repo.vshnv.tech/releases") }
+        maven { url = uri("https://dl.rocketplugins.space/") }
     }
 
     dependencies {
         compileOnly 'org.jetbrains:annotations:21.0.1'
-        implementation 'io.github.slimjar:slimjar:1.2.4'
+        implementation 'io.github.slimjar:slimjar:1.2.6'
     }
 
     shadowJar {
@@ -94,6 +94,13 @@ subprojects {
                 credentials {
                     username repsyUsername
                     password repsyPassword
+                }
+            }
+            maven {
+                url 'https://dl.rocketplugins.space/'
+                credentials {
+                    username repoUsername
+                    password repoPassword
                 }
             }
         }

@@ -1,6 +1,7 @@
 package me.lorenzo0111.pluginslib.dependency;
 
 import io.github.slimjar.app.builder.ApplicationBuilder;
+import io.github.slimjar.logging.ProcessLogger;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +22,14 @@ public class DependencyManager {
         this.builder = ApplicationBuilder
                 .appending(name)
                 .downloadDirectoryPath(libsDirectory.toPath());
+    }
+
+    public void enableMirror() {
+        builder.mirrorSelector((a, b) -> a); // https://github.com/slimjar/slimjar/issues/61#issuecomment-955549772
+    }
+
+    public void logger(ProcessLogger logger) {
+        builder.logger(logger);
     }
 
     public long build() throws ReflectiveOperationException, IOException, URISyntaxException, NoSuchAlgorithmException {
