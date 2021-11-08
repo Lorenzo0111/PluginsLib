@@ -1,5 +1,7 @@
 # Changelog
 
+**This file is outdated. Check the [releases page](https://github.com/FoxPowered/PluginsLib/releases) for changelog**
+
 `v2.0`
 Totally rewrite for multiplatform support
 
