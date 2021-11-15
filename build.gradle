@@ -42,7 +42,7 @@ subprojects {
     }
 
     repositories {
-        maven { url = uri("https://dl.rocketplugins.space/") }
+        maven { url = uri("https://dl.lorenzo0111.me/") }
     }
 
     dependencies {
@@ -97,7 +97,7 @@ subprojects {
                 }
             }
             maven {
-                url 'https://dl.rocketplugins.space/'
+                url 'https://dl.lorenzo0111.me/'
                 credentials {
                     username repoUsername
                     password repoPassword
