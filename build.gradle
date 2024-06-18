@@ -1,10 +1,10 @@
 plugins {
     id 'java'
     id 'maven-publish'
-    id "com.github.johnrengelman.shadow" version "7.0.0"
+    id "com.github.johnrengelman.shadow" version "8.1.1"
 }
 
-version "2.0.3.1"
+version "2.0.4"
 description "Library for minecraft plugins"
 
 ext {
@@ -20,8 +20,8 @@ subprojects {
     apply plugin: "maven-publish"
     apply plugin: "com.github.johnrengelman.shadow"
 
-    group 'space.rocketplugins.pluginslib'
-    version '2.0.3.2'
+    group 'me.lorenzo0111.pluginslib'
+    version '2.0.4'
 
     repositories {
         mavenCentral()
@@ -29,9 +29,9 @@ subprojects {
 
     javadoc {
         options.links(
-                'https://javadoc.io/static/org.jetbrains/annotations/20.1.0/',
+                'https://javadoc.io/static/org.jetbrains/annotations/24.1.0/',
                 'https://docs.oracle.com/javase/8/docs/api/',
-                'https://papermc.io/javadocs/paper/1.16/'
+                'https://jd.papermc.io/paper/1.20.4/'
         )
         source = sourceSets.main.allJava
     }
@@ -42,17 +42,17 @@ subprojects {
     }
 
     repositories {
-        maven { url = uri("https://dl.lorenzo0111.me/") }
+        maven { url = uri("https://dl.lorenzo0111.me/releases") }
     }
 
     dependencies {
-        compileOnly 'org.jetbrains:annotations:21.0.1'
-        implementation 'io.github.slimjar:slimjar:1.2.7'
+        compileOnly 'org.jetbrains:annotations:24.1.0'
+        implementation 'io.github.slimjar:slimjar:1.2.8'
     }
 
     shadowJar {
         archiveFileName = "${project.name}-${project.version}.jar"
-        relocate("org.yaml.snakeyaml","${base}.yaml")
+        relocate("org.yaml.snakeyaml", "${base}.yaml")
     }
 
     publishing {
@@ -75,7 +75,7 @@ subprojects {
                         developer {
                             id = 'lorenzo0111'
                             name = 'Lorenzo0111'
-                            email = 'lorenzo@rocketplugins.space'
+                            email = 'hello@lorenzo0111.me'
                         }
                     }
                     scm {
@@ -90,24 +90,11 @@ subprojects {
 
         repositories {
             maven {
-                url 'https://repo.repsy.io/mvn/lorenzo0111/public'
+                url 'https://dl.lorenzo0111.me/releases'
                 credentials {
-                    username repsyUsername
-                    password repsyPassword
+                    username = project.findProperty("repoUsername") ?: repoUsername
+                    password = project.findProperty("repoPassword") ?: repoPassword
                 }
-            }
-            maven {
-                url 'https://dl.lorenzo0111.me/'
-                credentials {
-                    username repoUsername
-                    password repoPassword
-                }
-            }
-        }
-
-        publications {
-            gpr(MavenPublication) {
-                from(components.java)
             }
         }
     }

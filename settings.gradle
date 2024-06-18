@@ -24,4 +24,4 @@
 
 rootProject.name = 'pluginslib'
 
-include('common','bukkit','sponge')
+include('common','bukkit')

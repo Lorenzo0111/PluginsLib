@@ -43,7 +43,6 @@ jobs:
         run: |
           mv common/build/docs/javadoc/ javadocs/
           cp -r bukkit/build/docs/javadoc/ javadocs/bukkit/
-          cp -r sponge/build/docs/javadoc/ javadocs/sponge/
 
       - name: Deploy Javadocs
         if: ${{ github.event_name == 'push' && github.repository == 'FoxPowered/PluginsLib' }}
