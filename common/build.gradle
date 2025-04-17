@@ -2,5 +2,5 @@ dependencies {
     implementation 'org.spongepowered:configurate-yaml:4.2.0'
     implementation 'com.google.guava:guava:33.4.8-jre'
     implementation 'net.kyori:adventure-api:4.20.0'
-    compileOnly 'com.zaxxer:HikariCP:4.0.3'
+    compileOnly 'com.zaxxer:HikariCP:6.3.0'
 }
