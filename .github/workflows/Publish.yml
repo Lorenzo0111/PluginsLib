@@ -13,8 +13,8 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v2
         with:
-          java-version: '8'
-          distribution: 'adopt'
+          java-version: '21'
+          distribution: 'temurin'
       - name: Publish package
         run: gradle publish
         env:

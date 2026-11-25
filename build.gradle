@@ -16,9 +16,8 @@ shadowJar {
 }
 
 subprojects {
-    apply plugin: "java"
+    apply plugin: "java-library"
     apply plugin: "maven-publish"
-    apply plugin: "com.gradleup.shadow"
 
     group 'me.lorenzo0111.pluginslib'
     version '2.0.5'
@@ -29,9 +28,9 @@ subprojects {
 
     javadoc {
         options.links(
-                'https://javadoc.io/static/org.jetbrains/annotations/26.0.2/',
+                'https://javadoc.io/static/org.jetbrains/annotations/26.1.0/',
                 'https://docs.oracle.com/javase/8/docs/api/',
-                'https://jd.papermc.io/paper/1.21.5/'
+                'https://jd.papermc.io/paper/1.21.11/'
         )
         source = sourceSets.main.allJava
     }
@@ -45,14 +44,14 @@ subprojects {
         maven { url = uri("https://dl.lorenzo0111.me/releases") }
     }
 
-    dependencies {
-        compileOnly 'org.jetbrains:annotations:26.0.2'
-        implementation 'io.github.slimjar:slimjar:1.2.8'
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
+        options.release = 8
     }
 
-    shadowJar {
-        archiveFileName = "${project.name}-${project.version}.jar"
-        relocate("org.yaml.snakeyaml", "${base}.yaml")
+    dependencies {
+        compileOnly 'org.jetbrains:annotations:26.1.0'
+        api 'me.lorenzo0111:slimjar:1.3.0'
     }
 
     publishing {
@@ -98,6 +97,4 @@ subprojects {
             }
         }
     }
-
-    tasks.build.dependsOn tasks.shadowJar
 }
