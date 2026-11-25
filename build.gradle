@@ -91,8 +91,8 @@ subprojects {
             maven {
                 url 'https://dl.lorenzo0111.me/releases'
                 credentials {
-                    username = project.findProperty("repoUsername") ?: repoUsername
-                    password = project.findProperty("repoPassword") ?: repoPassword
+                    username = project.findProperty("repoUsername")
+                    password = project.findProperty("repoPassword")
                 }
             }
         }
